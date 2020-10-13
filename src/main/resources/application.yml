@@ -1,0 +1,78 @@
+spring:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.105.74.246:8888/eladmin?allowMultiQueries=true&useUnicode=true&characterEncoding=Utf-8
+    username: root
+    password: 123321
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 28000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT1FROMDUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: admin
+        login-password: 123456
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.shop
+  global-config:
+    ##主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 1
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    ##数据库大写下划线转换
+    #capital-mode: true
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    # SQL 解析缓存，开启后多租户 @SqlParser 注解生效
+    sql-parser-cache: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+#jwt
+jwt:
+  header: Authorization
+  # 令牌前缀
+  token-start-with: Bearer
+  # 必须使用最少88位的Base64对该令牌进行编码
+  base64-secret: ZmQ0ZGI5NjQ0MDQwY2I4MjMxY2Y3ZmI3MjdhN2ZmMjNhODViOTg1ZGE0NTBjMGM4NDA5NzYxMjdjOWMwYWRmZTBlZjlhNGY3ZTg4Y2U3YTE1ODVkZDU5Y2Y3OGYwZWE1NzUzNWQ2YjFjZDc0NGMxZWU2MmQ3MjY1NzJmNTE0MzI=
+  # 令牌过期时间 此处单位/毫秒 ，默认4小时，可在此网站生成 https://www.convertworld.com/zh-hans/time/milliseconds.html
+  token-validity-in-seconds: 14400000
+  # 在线用户key
+  online-key: online-token-
+  # 验证码
+  code-key: code-key-
+  # token 续期检查时间范围（默认30分钟，单位毫秒），在token即将过期的一段时间内用户操作了，则给用户的token续期
+  detect: 1800000
+  # 续期时间范围，默认1小时，单位毫秒
+  renew: 3600000
+
+redis:
+  #数据库索引
+  database: ${REDIS_DB:0}
+  host: ${REDIS_HOST:192.168.0.96}
+  port: ${REDIS_PORT:6379}
+  password: ${REDIS_PWD:}
+  #连接超时时间
+  timeout: 5000
