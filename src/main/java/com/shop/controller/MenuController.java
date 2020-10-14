@@ -2,6 +2,7 @@ package com.shop.controller;
 
 import com.shop.vo.MenuMetaVo;
 import com.shop.vo.MenuVo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/menus")
 public class MenuController {
 
@@ -57,6 +59,7 @@ public class MenuController {
         orderMenu.setMeta(orderMeta);
         menuChildrens.add(orderMenu);
         menuVo.setChildren(menuChildrens);
+        menus.add(menuVo);
         return new ResponseEntity<>(menus, HttpStatus.OK);
     }
 }

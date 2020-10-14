@@ -4,6 +4,8 @@ import com.shop.properties.SecurityProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -36,6 +38,8 @@ public class TokenFilter extends GenericFilterBean {
         String token = resolveToken(httpServletRequest);
         // 对于 Token 为空的不需要去查 Redis
         if (StringUtils.isNotBlank(token)) {
+            Authentication authentication = tokenProvider.getAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             // Token 续期
             tokenProvider.checkRenewal(token);
         }

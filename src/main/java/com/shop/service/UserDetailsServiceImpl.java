@@ -21,13 +21,14 @@ import com.shop.exception.BadRequestException;
 import com.shop.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -68,10 +69,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 if (!user.getEnabled()) {
                     throw new BadRequestException("账号未激活！");
                 }
+
+                Set<String> permissions = new HashSet<>();
+                permissions.add("admin");
+                List<GrantedAuthority> auths =  permissions.stream().map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
                 jwtUserDto = new JwtUserDto(
                         user,
                         new ArrayList<Long>(),
-                        new ArrayList<GrantedAuthority>()
+                        auths
                 );
                 userDtoCache.put(username, jwtUserDto);
             }
