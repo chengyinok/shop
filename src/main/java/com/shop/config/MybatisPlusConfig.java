@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Profile;
  * @描述
  */
 @Configuration
-@MapperScan("com.shop.*.dao*")
+@MapperScan("com.shop.dao*")
 public class MybatisPlusConfig {
 
     /**
