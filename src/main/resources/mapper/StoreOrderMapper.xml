@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.StoreOrderDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shop.entity.StoreOrder">
+        <id column="id" property="id" />
+        <result column="quantity" property="quantity" />
+        <result column="sum_price" property="sumPrice" />
+        <result column="date_publish" property="datePublish" />
+        <result column="size" property="size" />
+        <result column="address" property="address" />
+        <result column="pay_status" property="payStatus" />
+        <result column="post_status" property="postStatus" />
+        <result column="clothing_id_id" property="clothingIdId" />
+        <result column="user_id_id" property="userIdId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, quantity, sum_price, date_publish, size, address, pay_status, post_status, clothing_id_id, user_id_id
+    </sql>
+
+</mapper>
