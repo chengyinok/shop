@@ -1,21 +1,53 @@
 package com.shop.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.shop.dto.PageDTO;
+import com.shop.entity.StoreUser;
+import com.shop.service.StoreUserService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import org.springframework.stereotype.Controller;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * <p>
- *  前端控制器
- * </p>
- *
- * @author 
- * @since 2020-10-15
- */
-@Controller
-@RequestMapping("//storeUser")
+@RestController
+@RequestMapping("/api/user")
 public class StoreUserController {
 
+    @Autowired
+    private StoreUserService storeUserService;
+
+    @GetMapping
+    public ResponseEntity<Object> list(PageDTO pageDTO, StoreUser storeUser) {
+        Page page = new Page(pageDTO.getPage(), pageDTO.getSize());
+        QueryWrapper<StoreUser> queryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(storeUser.getUsername())) {
+            queryWrapper.like("username", storeUser.getUsername());
+        }
+        storeUserService.page(page, queryWrapper);
+        Map<String, Object> result = new HashMap<>();
+        result.put("content", page.getRecords());
+        result.put("totalElements", page.getTotal());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<Object> update(Integer id, Boolean isActive) {
+        StoreUser storeUser = storeUserService.getById(id);
+        if(storeUser == null){
+            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        storeUser.setIsActive(isActive);
+        storeUserService.updateById(storeUser);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
 

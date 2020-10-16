@@ -1,35 +1,36 @@
 package com.shop.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
- * @author 
+ * @author
  * @since 2020-10-15
  */
 @Data
-  @EqualsAndHashCode(callSuper = false)
-  @Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class StoreUser extends Model<StoreUser> {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
-      private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     private String password;
 
-    private LocalDateTime lastLogin;
+    private Date lastLogin;
 
     private Boolean isSuperuser;
 
@@ -45,7 +46,7 @@ public class StoreUser extends Model<StoreUser> {
 
     private Boolean isActive;
 
-    private LocalDateTime dateJoined;
+    private Date dateJoined;
 
     private String qq;
 
@@ -54,7 +55,7 @@ public class StoreUser extends Model<StoreUser> {
 
     @Override
     protected Serializable pkVal() {
-          return this.id;
-      }
+        return this.id;
+    }
 
 }
