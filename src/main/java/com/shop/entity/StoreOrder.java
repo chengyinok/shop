@@ -75,6 +75,8 @@ public class StoreOrder extends Model<StoreOrder> {
      */
     private Integer userId;
 
+    private transient String goodsName;
+
 
     @Override
     protected Serializable pkVal() {

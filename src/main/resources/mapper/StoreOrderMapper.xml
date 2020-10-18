@@ -12,8 +12,8 @@
         <result column="address" property="address" />
         <result column="pay_status" property="payStatus" />
         <result column="post_status" property="postStatus" />
-        <result column="clothing_id_id" property="clothingIdId" />
-        <result column="user_id_id" property="userIdId" />
+        <result column="clothing_id" property="clothingId" />
+        <result column="user_id" property="userId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -21,4 +21,69 @@
         id, quantity, sum_price, date_publish, size, address, pay_status, post_status, clothing_id_id, user_id_id
     </sql>
 
+    <select id="listPage" resultType="map">
+        SELECT
+            sc.id,
+            sc.`name`  goodsName,
+            scs.`name` goodsSize,
+            so.quantity,
+            sc.new_price goodsPrice,
+            so.sum_price itemAmount,
+            so.date_publish  datePublish,
+            so.address,
+            so.pay_status payStatus,
+            so.post_status postStatus,
+            su.username
+        FROM
+            store_order so
+            LEFT JOIN store_clothing sc ON so.clothing_id = sc.id
+            LEFT JOIN store_size scs ON so.size = scs.id
+            LEFT JOIN store_user su ON so.user_id=su.id
+        <where>
+            <if test="entity.goodsName != null and entity.goodsName != ''">
+                AND sc.name like concat('%',#{entity.goodsName},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="listUsers" resultType="map">
+        select
+          id value,
+          username label
+        from
+          store_user
+    </select>
+
+    <select id="listClothings" resultType="map">
+        select
+          id value,
+          name label
+        from
+          store_clothing where category_id = #{categoryId}
+    </select>
+
+    <select id="listCatagorys" resultType="map">
+        select
+          id value,
+          name label
+        from
+          store_category
+    </select>
+
+    <select id="listSizes" resultType="map">
+        SELECT
+            id value,
+          name label
+        FROM
+            store_size
+        WHERE
+            id IN ( SELECT size_id FROM store_clothing_size WHERE clothing_id = #{clothingId} )
+    </select>
+
+    <select id="getPrice" resultType="map">
+        select
+          new_price price
+        from
+          store_clothing where id = #{clothingId}
+    </select>
 </mapper>

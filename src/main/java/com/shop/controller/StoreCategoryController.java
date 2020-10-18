@@ -59,7 +59,7 @@ public class StoreCategoryController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Object> update(@RequestBody Set<Long> ids) {
+    public ResponseEntity<Object> removeByIds(@RequestBody Set<Long> ids) {
         storeCategoryService.removeByIds(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
