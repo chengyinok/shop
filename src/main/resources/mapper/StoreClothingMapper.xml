@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.StoreClothingDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shop.entity.StoreClothing">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="old_price" property="oldPrice" />
+        <result column="new_price" property="newPrice" />
+        <result column="discount" property="discount" />
+        <result column="desc" property="desc" />
+        <result column="sales" property="sales" />
+        <result column="num" property="num" />
+        <result column="image_url_i" property="imageUrlI" />
+        <result column="image_url_l" property="imageUrlL" />
+        <result column="image_url_m" property="imageUrlM" />
+        <result column="image_url_r" property="imageUrlR" />
+        <result column="image_url_c" property="imageUrlC" />
+        <result column="brand_id" property="brandId" />
+        <result column="category_id" property="categoryId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, old_price, new_price, discount, desc, sales, num, image_url_i, image_url_l, image_url_m, image_url_r, image_url_c, brand_id, category_id
+    </sql>
+
+    <select id="isUseClothing" resultType="int">
+        select count(*) from store_tag where id in (select tag_id from store_clothing_tag where tag_id in
+        <foreach collection="ids" separator="," close=")" open="(" item="item">
+            #{item}
+        </foreach>
+        )
+    </select>
+
+</mapper>

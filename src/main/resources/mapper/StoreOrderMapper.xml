@@ -23,7 +23,7 @@
 
     <select id="listPage" resultType="map">
         SELECT
-            sc.id,
+            so.id,
             sc.`name`  goodsName,
             scs.`name` goodsSize,
             so.quantity,
