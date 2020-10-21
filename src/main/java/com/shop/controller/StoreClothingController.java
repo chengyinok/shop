@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,13 +37,9 @@ public class StoreClothingController {
     @GetMapping
     public ResponseEntity<Object> list(PageDTO pageDTO, StoreClothing storeClothing) {
         Page page = new Page(pageDTO.getPage(), pageDTO.getSize());
-        QueryWrapper<StoreClothing> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(storeClothing.getName())) {
-            queryWrapper.like("name", storeClothing.getName());
-        }
-        storeClothingService.page(page, queryWrapper);
+        List<Map<String,Object>> results= storeClothingService.listPage(page,storeClothing);
         Map<String, Object> result = new HashMap<>();
-        result.put("content", page.getRecords());
+        result.put("content", results);
         result.put("totalElements", page.getTotal());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

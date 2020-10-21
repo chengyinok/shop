@@ -26,6 +26,68 @@
         id, name, old_price, new_price, discount, desc, sales, num, image_url_i, image_url_l, image_url_m, image_url_r, image_url_c, brand_id, category_id
     </sql>
 
+    <select id="listPage" resultType="map">
+        SELECT
+            id,
+            name,
+            old_price oldPrice,
+            new_price newPrice,
+            discount,
+            `desc`,
+            sales,
+            num,
+            image_url_i imageUrlI,
+            image_url_l imageUrlL,
+            image_url_m imageUrlM,
+            image_url_r imageUrlR,
+            image_url_c imageUrlC,
+            concat(image_url_i,'|',image_url_l,'|',image_url_m,'|',image_url_r,'|',image_url_c) imgs,
+            brand_id brandId,
+            category_id categoryId,
+            categoryName,
+            GROUP_CONCAT( sizeName ) sizeNames,
+            GROUP_CONCAT( DISTINCT ( tagName ) ) tagNames
+        FROM
+            (
+        SELECT
+            sc.id,
+            sc.name,
+            old_price,
+            new_price,
+            discount,
+            `desc`,
+            sales,
+            num,
+            image_url_i,
+            image_url_l,
+            image_url_m,
+            image_url_r,
+            image_url_c,
+            brand_id,
+            category_id,
+            ss.NAME sizeName,
+            st.NAME tagName,
+            cate.`name` categoryName
+        FROM
+            store_clothing sc
+            LEFT JOIN store_clothing_size scc ON sc.id = scc.clothing_id
+            LEFT JOIN store_clothing_tag sct ON sc.id = sct.clothing_id
+            LEFT JOIN store_size ss ON scc.size_id = ss.id
+            LEFT JOIN store_tag st ON sct.tag_id = st.id
+            LEFT JOIN store_category cate ON sc.category_id = cate.id
+        ORDER BY
+            sc.id,
+            ss.id
+            ) a
+        <where>
+            <if test="entity.name != null and entity.name !=''">
+                AND name like concat('%',#{entity.name},'%')
+            </if>
+        </where>
+        GROUP BY
+            a.id
+    </select>
+
     <select id="isUseClothing" resultType="int">
         select count(*) from store_tag where id in (select tag_id from store_clothing_tag where tag_id in
         <foreach collection="ids" separator="," close=")" open="(" item="item">

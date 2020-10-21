@@ -1,6 +1,7 @@
 package com.shop.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ public class StoreClothing extends Model<StoreClothing> {
 
     private Double discount;
 
+    @TableField(value = "`desc`")
     private String desc;
 
     private Integer sales;

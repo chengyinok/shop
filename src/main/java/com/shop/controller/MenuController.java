@@ -21,6 +21,35 @@ public class MenuController {
     @GetMapping(value = "/build")
     public ResponseEntity<Object> buildMenus() {
         List<MenuVo> menus = new LinkedList<>();
+
+        MenuVo goodsMenuVo = new MenuVo();
+        goodsMenuVo.setAlwaysShow(true);
+        goodsMenuVo.setComponent("Layout");
+        goodsMenuVo.setHidden(false);
+        goodsMenuVo.setName("功能菜单");
+        goodsMenuVo.setPath("/goods");
+        goodsMenuVo.setRedirect("noredirect");
+        MenuMetaVo goodsMetaVo = new MenuMetaVo("商品管理", "system", true);
+        goodsMenuVo.setMeta(goodsMetaVo);
+        List<MenuVo> goodsMenuChildrens = new ArrayList<>();
+        MenuVo goodsMenu = new MenuVo();
+        goodsMenu.setName("Clothing");
+        goodsMenu.setPath("clothing");
+        goodsMenu.setHidden(false);
+        goodsMenu.setComponent("goods/clothing/index");
+        MenuMetaVo clothingMeta = new MenuMetaVo("商品列表", "peoples", true);
+        goodsMenu.setMeta(clothingMeta);
+        goodsMenuChildrens.add(goodsMenu);
+
+        MenuVo tagMenu = new MenuVo();
+        tagMenu.setName("Tag");
+        tagMenu.setPath("tag");
+        tagMenu.setHidden(false);
+        tagMenu.setComponent("goods/tag/index");
+        MenuMetaVo tagMeta = new MenuMetaVo("商品标签", "peoples", true);
+        tagMenu.setMeta(tagMeta);
+        goodsMenuChildrens.add(tagMenu);
+
         MenuVo menuVo = new MenuVo();
         menuVo.setAlwaysShow(true);
         menuVo.setComponent("Layout");
@@ -59,6 +88,8 @@ public class MenuController {
         orderMenu.setMeta(orderMeta);
         menuChildrens.add(orderMenu);
         menuVo.setChildren(menuChildrens);
+        goodsMenuVo.setChildren(goodsMenuChildrens);
+        menus.add(goodsMenuVo);
         menus.add(menuVo);
         return new ResponseEntity<>(menus, HttpStatus.OK);
     }

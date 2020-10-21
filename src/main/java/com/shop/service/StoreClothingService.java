@@ -1,8 +1,11 @@
 package com.shop.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.shop.entity.StoreClothing;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,4 +19,6 @@ import java.util.Set;
 public interface StoreClothingService extends IService<StoreClothing> {
 
     boolean isUseClothing(Set<Long> ids);
+
+    List<Map<String, Object>> listPage(Page page, StoreClothing storeClothing);
 }

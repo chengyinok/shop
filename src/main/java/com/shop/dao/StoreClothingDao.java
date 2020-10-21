@@ -1,8 +1,12 @@
 package com.shop.dao;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.shop.entity.StoreClothing;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,4 +20,6 @@ import java.util.Set;
 public interface StoreClothingDao extends BaseMapper<StoreClothing> {
 
     int isUseClothing(Set<Long> ids);
+
+    List<Map<String, Object>> listPage(Page page,@Param("entity") StoreClothing storeClothing);
 }
