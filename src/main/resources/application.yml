@@ -1,14 +1,18 @@
-
+file:
+  upload:
+    dir: ${user.dir}/gpo_load_sources/
 
 spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+  resources:
+    static-locations: file:${file.upload.dir},classpath:/static,classpath:/templates
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.105.74.246:8888/eladmin?allowMultiQueries=true&useUnicode=true&characterEncoding=Utf-8
+    url: jdbc:mysql://47.105.74.246:8888/test02?allowMultiQueries=true&useUnicode=true&characterEncoding=Utf-8&serverTimezone=Asia/Shanghai
     username: root
-    password: 00000
+    password: xxxxxxx
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
@@ -32,7 +36,7 @@ spring:
     database: ${REDIS_DB:0}
     host: ${REDIS_HOST:47.105.74.246}
     port: ${REDIS_PORT:6399}
-    password: ${REDIS_PWD:000000}
+    password: ${REDIS_PWD:sunredis}
     #连接超时时间
     timeout: 5000
 
