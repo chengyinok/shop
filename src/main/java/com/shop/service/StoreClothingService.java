@@ -21,4 +21,10 @@ public interface StoreClothingService extends IService<StoreClothing> {
     boolean isUseClothing(Set<Long> ids);
 
     List<Map<String, Object>> listPage(Page page, StoreClothing storeClothing);
+
+    List<Map<String, Object>> listBrands();
+
+    List<Map<String, Object>> listTags();
+
+    List<Map<String, Object>> listSizes();
 }

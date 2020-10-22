@@ -66,5 +66,23 @@ public class StoreClothingController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
+
+    @GetMapping("/listBrands")
+    public ResponseEntity<Object> listBrands(){
+        List<Map<String,Object>> resutls = storeClothingService.listBrands();
+        return new ResponseEntity<>(resutls,HttpStatus.OK);
+    }
+
+    @GetMapping("/listTags")
+    public ResponseEntity<Object> listTags(){
+        List<Map<String,Object>> resutls = storeClothingService.listTags();
+        return new ResponseEntity<>(resutls,HttpStatus.OK);
+    }
+
+    @GetMapping("/listSizes")
+    public ResponseEntity<Object> listSizes(){
+        List<Map<String,Object>> resutls = storeClothingService.listSizes();
+        return new ResponseEntity<>(resutls,HttpStatus.OK);
+    }
 }
 

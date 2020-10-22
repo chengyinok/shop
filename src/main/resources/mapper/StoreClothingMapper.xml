@@ -43,9 +43,11 @@
             image_url_c imageUrlC,
             concat(image_url_i,'|',image_url_l,'|',image_url_m,'|',image_url_r,'|',image_url_c) imgs,
             brand_id brandId,
+            brandName,
             category_id categoryId,
             categoryName,
             GROUP_CONCAT( sizeName ) sizeNames,
+            GROUP_CONCAT( sizeId ) sizeIds,
             GROUP_CONCAT( DISTINCT ( tagName ) ) tagNames
         FROM
             (
@@ -64,8 +66,10 @@
             image_url_r,
             image_url_c,
             brand_id,
+            sb.name brandName,
             category_id,
             ss.NAME sizeName,
+            ss.id sizeId,
             st.NAME tagName,
             cate.`name` categoryName
         FROM
@@ -75,6 +79,7 @@
             LEFT JOIN store_size ss ON scc.size_id = ss.id
             LEFT JOIN store_tag st ON sct.tag_id = st.id
             LEFT JOIN store_category cate ON sc.category_id = cate.id
+            LEFT JOIN store_brand sb ON sc.brand_id = sb.id
         ORDER BY
             sc.id,
             ss.id
@@ -94,6 +99,30 @@
             #{item}
         </foreach>
         )
+    </select>
+
+    <select id="listBrands" resultType="map">
+        select
+          id value,
+          name label
+        from
+          store_brand
+    </select>
+
+    <select id="listTags" resultType="map">
+        select
+          id value,
+          name label
+        from
+          store_tag
+    </select>
+
+    <select id="listSizes" resultType="map">
+        select
+          id value,
+          name label
+        from
+          store_size
     </select>
 
 </mapper>

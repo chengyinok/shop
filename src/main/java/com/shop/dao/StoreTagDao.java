@@ -2,6 +2,7 @@ package com.shop.dao;
 
 import com.shop.entity.StoreTag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Set;
 
@@ -15,5 +16,5 @@ import java.util.Set;
  */
 public interface StoreTagDao extends BaseMapper<StoreTag> {
 
-    int isUseTag(Set<Long> ids);
+    int isUseTag(@Param("ids") Set<Long> ids);
 }

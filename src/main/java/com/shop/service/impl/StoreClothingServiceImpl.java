@@ -35,4 +35,19 @@ public class StoreClothingServiceImpl extends ServiceImpl<StoreClothingDao, Stor
         }
         return false;
     }
+
+    @Override
+    public List<Map<String, Object>> listBrands() {
+        return this.baseMapper.listBrands();
+    }
+
+    @Override
+    public List<Map<String, Object>> listTags() {
+        return this.baseMapper.listTags();
+    }
+
+    @Override
+    public List<Map<String, Object>> listSizes() {
+        return this.baseMapper.listSizes();
+    }
 }

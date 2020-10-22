@@ -19,7 +19,13 @@ import java.util.Set;
  */
 public interface StoreClothingDao extends BaseMapper<StoreClothing> {
 
-    int isUseClothing(Set<Long> ids);
+    int isUseClothing(@Param("ids") Set<Long> ids);
 
     List<Map<String, Object>> listPage(Page page,@Param("entity") StoreClothing storeClothing);
+
+    List<Map<String, Object>> listBrands();
+
+    List<Map<String, Object>> listTags();
+
+    List<Map<String, Object>> listSizes();
 }
