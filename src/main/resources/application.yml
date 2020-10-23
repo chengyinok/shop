@@ -10,7 +10,7 @@ spring:
     static-locations: file:${file.upload.dir},classpath:/static,classpath:/templates
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.105.74.246:8888/test02?allowMultiQueries=true&useUnicode=true&characterEncoding=Utf-8
+    url: jdbc:mysql://47.105.74.246:8888/test02?allowMultiQueries=true&useUnicode=true&characterEncoding=Utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: xxxxxxx
     type: com.alibaba.druid.pool.DruidDataSource
