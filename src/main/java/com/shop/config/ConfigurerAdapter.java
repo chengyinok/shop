@@ -1,5 +1,6 @@
 package com.shop.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class ConfigurerAdapter implements WebMvcConfigurer {
 
+    @Value("${file.upload.dir}")
+    private String UPLOAD_FOLDER;
 
     @Bean
     public CorsFilter corsFilter() {
@@ -32,6 +35,6 @@ public class ConfigurerAdapter implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/").setCachePeriod(0);
+        registry.addResourceHandler("/api/img/**").addResourceLocations("file:" + UPLOAD_FOLDER);
     }
 }
