@@ -48,7 +48,8 @@
             categoryName,
             GROUP_CONCAT( sizeName ) sizeNames,
             GROUP_CONCAT( sizeId ) sizeIds,
-            GROUP_CONCAT( DISTINCT ( tagName ) ) tagNames
+            GROUP_CONCAT( DISTINCT ( tagName ) ) tagNames,
+            min(tagId)  tagId
         FROM
             (
         SELECT
@@ -70,6 +71,7 @@
             category_id,
             ss.NAME sizeName,
             ss.id sizeId,
+            st.id tagId,
             st.NAME tagName,
             cate.`name` categoryName
         FROM
