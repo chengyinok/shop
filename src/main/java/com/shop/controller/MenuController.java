@@ -50,6 +50,15 @@ public class MenuController {
         tagMenu.setMeta(tagMeta);
         goodsMenuChildrens.add(tagMenu);
 
+        MenuVo brandMenu = new MenuVo();
+        brandMenu.setName("Brand");
+        brandMenu.setPath("brand");
+        brandMenu.setHidden(false);
+        brandMenu.setComponent("goods/brand/index");
+        MenuMetaVo brandMeta = new MenuMetaVo("商品品牌", "peoples", true);
+        brandMenu.setMeta(brandMeta);
+        goodsMenuChildrens.add(brandMenu);
+
         MenuVo menuVo = new MenuVo();
         menuVo.setAlwaysShow(true);
         menuVo.setComponent("Layout");

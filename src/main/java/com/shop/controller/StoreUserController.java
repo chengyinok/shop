@@ -40,12 +40,12 @@ public class StoreUserController {
     }
 
     @PutMapping
-    public ResponseEntity<Object> update(Integer id, Boolean isActive) {
-        StoreUser storeUser = storeUserService.getById(id);
-        if(storeUser == null){
+    public ResponseEntity<Object> update(StoreUser storeUser) {
+        StoreUser oldStoreUser = storeUserService.getById(storeUser.getId());
+        if(oldStoreUser == null){
             new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        storeUser.setIsActive(isActive);
+        oldStoreUser.setIsActive(storeUser.getIsActive());
         storeUserService.updateById(storeUser);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

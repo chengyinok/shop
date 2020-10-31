@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.StoreCommentDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shop.entity.StoreComment">
+        <id column="id" property="id" />
+        <result column="date_publish" property="datePublish" />
+        <result column="comment_info" property="commentInfo" />
+        <result column="clothing_id_id" property="clothingIdId" />
+        <result column="user_id_id" property="userIdId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, date_publish, comment_info, clothing_id_id, user_id_id
+    </sql>
+    <select id="listComment" resultType="java.util.Map">
+        SELECT
+            sc.comment_info commentInfo,
+            sc.date_publish datePublish,
+            su.username
+        FROM
+            store_comment sc
+            LEFT JOIN store_user su ON sc.user_id_id = su.id
+        WHERE
+            sc.clothing_id_id = #{clothingIdId}
+    </select>
+
+</mapper>
