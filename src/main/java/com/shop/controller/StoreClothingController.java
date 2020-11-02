@@ -56,12 +56,43 @@ public class StoreClothingController {
                 }
             }
             item.put("sizeIds", sizeIds);
-            String imageUrlI = (String) item.get("imageUrlI");
             List<Object> fileList = new ArrayList<>();
-            Map<String,Object> file = new HashMap<>();
-            file.put("name","file");
-            file.put("url",imageUrlI);
-            fileList.add(file);
+            if(item.get("imageUrlI") != null){
+                String imageUrlI = (String) item.get("imageUrlI");
+                Map<String,Object> file1 = new HashMap<>();
+                file1.put("name","imageUrlI");
+                file1.put("url",imageUrlI);
+                fileList.add(file1);
+            }
+            if(item.get("imageUrlL") != null){
+                String imageUrlL = (String) item.get("imageUrlI");
+                Map<String,Object> file1 = new HashMap<>();
+                file1.put("name","imageUrlL");
+                file1.put("url",imageUrlL);
+                fileList.add(file1);
+            }
+            if(item.get("imageUrlM") != null){
+                String imageUrlM = (String) item.get("imageUrlM");
+                Map<String,Object> file1 = new HashMap<>();
+                file1.put("name","imageUrlM");
+                file1.put("url",imageUrlM);
+                fileList.add(file1);
+            }
+            if(item.get("imageUrlR") != null){
+                String imageUrlR = (String) item.get("imageUrlR");
+                Map<String,Object> file1 = new HashMap<>();
+                file1.put("name","imageUrlR");
+                file1.put("url",imageUrlR);
+                fileList.add(file1);
+            }
+            if(item.get("imageUrlC") != null){
+                String imageUrlC = (String) item.get("imageUrlC");
+                Map<String,Object> file1 = new HashMap<>();
+                file1.put("name","imageUrlC");
+                file1.put("url",imageUrlC);
+                fileList.add(file1);
+            }
+
             item.put("fileList", fileList);
         }
         result.put("content", results);
@@ -74,6 +105,18 @@ public class StoreClothingController {
         storeClothing.setDiscount(BigDecimal.ZERO);
         storeClothing.setSales(0);
         storeClothing.setImageUrlI("/api/img/"+storeClothing.getImageUrlI());
+        if(StringUtils.isNotBlank(storeClothing.getImageUrlL())){
+            storeClothing.setImageUrlL("/api/img/"+storeClothing.getImageUrlL());
+        }
+        if(StringUtils.isNotBlank(storeClothing.getImageUrlM())){
+            storeClothing.setImageUrlM("/api/img/"+storeClothing.getImageUrlM());
+        }
+        if(StringUtils.isNotBlank(storeClothing.getImageUrlR())){
+            storeClothing.setImageUrlR("/api/img/"+storeClothing.getImageUrlR());
+        }
+        if(StringUtils.isNotBlank(storeClothing.getImageUrlL())){
+            storeClothing.setImageUrlL("/api/img/"+storeClothing.getImageUrlL());
+        }
         storeClothingService.save(storeClothing);
         if (null != storeClothing.getTagId()) {
             StoreClothingTag storeClothingTag = new StoreClothingTag();
