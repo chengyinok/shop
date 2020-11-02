@@ -10,10 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,13 +37,13 @@ public class StoreUserController {
     }
 
     @PutMapping
-    public ResponseEntity<Object> update(StoreUser storeUser) {
+    public ResponseEntity<Object> update(@RequestBody StoreUser storeUser) {
         StoreUser oldStoreUser = storeUserService.getById(storeUser.getId());
         if(oldStoreUser == null){
             new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         oldStoreUser.setIsActive(storeUser.getIsActive());
-        storeUserService.updateById(storeUser);
+        storeUserService.updateById(oldStoreUser);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
